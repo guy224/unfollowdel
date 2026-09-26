@@ -13,6 +13,15 @@ if (chrome.runtime && chrome.runtime.setUninstallURL) {
   });
 }
 
+// On install, open onboarding once in an external tab (never inside the side panel)
+if (chrome.runtime && chrome.runtime.onInstalled) {
+  chrome.runtime.onInstalled.addListener((details) => {
+    if (details.reason === 'install') {
+      chrome.tabs.create({ url: 'onboarding.html' });
+    }
+  });
+}
+
 let automationState = {
   status: 'idle', // 'idle', 'running', 'paused', 'completed', 'error'
   queue: [],
