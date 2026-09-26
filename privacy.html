@@ -6,6 +6,8 @@
   <meta name="description" content="מדיניות פרטיות של UnfollowDel — תוסף Chrome לניהול עוקבים באינסטגרם באופן מקומי." />
   <title>מדיניות פרטיות — UnfollowDel</title>
 
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="logo.svg" />
   <!-- Preconnect for font speed -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -302,7 +304,33 @@
   <!-- ── Header ── -->
   <header>
     <div class="container">
-      <div class="logo-mark">UD</div>
+      <div style="width:38px;height:38px;flex-shrink:0;">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%" style="display:block;">
+          <defs>
+            <linearGradient id="igGradientHdr" x1="0%" y1="100%" x2="100%" y2="0%">
+              <stop offset="0%" stop-color="#FFDC80" />
+              <stop offset="25%" stop-color="#F77737" />
+              <stop offset="50%" stop-color="#F56040" />
+              <stop offset="75%" stop-color="#FD1D1D" />
+              <stop offset="90%" stop-color="#C13584" />
+              <stop offset="100%" stop-color="#833AB4" />
+            </linearGradient>
+            <filter id="dropShadowHdr" x="-10%" y="-10%" width="130%" height="130%">
+              <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#000000" flood-opacity="0.25" />
+            </filter>
+          </defs>
+          <rect x="32" y="32" width="448" height="448" rx="110" fill="url(#igGradientHdr)" />
+          <rect x="34" y="34" width="444" height="444" rx="108" fill="none" stroke="#FFFFFF" stroke-width="4" stroke-opacity="0.2" />
+          <g filter="url(#dropShadowHdr)">
+            <circle cx="230" cy="190" r="64" fill="#FFFFFF" />
+            <path d="M120 350 C120 280, 170 265, 230 265 C290 265, 340 280, 340 350 Z" fill="#FFFFFF" />
+            <g transform="translate(330, 310)">
+              <circle cx="0" cy="0" r="58" fill="#18181B" stroke="#FFFFFF" stroke-width="8" />
+              <rect x="-26" y="-6" width="52" height="12" rx="6" fill="#EF4444" />
+            </g>
+          </g>
+        </svg>
+      </div>
       <span class="logo-name">UnfollowDel</span>
     </div>
   </header>
@@ -570,7 +598,29 @@
   <footer>
     <div class="container">
       <div class="footer-brand">
-        <div class="logo-mark" style="width:28px;height:28px;font-size:11px;border-radius:8px;">UD</div>
+        <div style="width:28px;height:28px;flex-shrink:0;">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%" style="display:block;">
+            <defs>
+              <linearGradient id="igGradientFtr" x1="0%" y1="100%" x2="100%" y2="0%">
+                <stop offset="0%" stop-color="#FFDC80" />
+                <stop offset="25%" stop-color="#F77737" />
+                <stop offset="50%" stop-color="#F56040" />
+                <stop offset="75%" stop-color="#FD1D1D" />
+                <stop offset="90%" stop-color="#C13584" />
+                <stop offset="100%" stop-color="#833AB4" />
+              </linearGradient>
+            </defs>
+            <rect x="32" y="32" width="448" height="448" rx="110" fill="url(#igGradientFtr)" />
+            <g>
+              <circle cx="230" cy="190" r="64" fill="#FFFFFF" />
+              <path d="M120 350 C120 280, 170 265, 230 265 C290 265, 340 280, 340 350 Z" fill="#FFFFFF" />
+              <g transform="translate(330, 310)">
+                <circle cx="0" cy="0" r="58" fill="#18181B" stroke="#FFFFFF" stroke-width="8" />
+                <rect x="-26" y="-6" width="52" height="12" rx="6" fill="#EF4444" />
+              </g>
+            </g>
+          </svg>
+        </div>
         <span class="footer-copy">© 2026 UnfollowDel. כל הזכויות שמורות.</span>
       </div>
       <div class="footer-links">
