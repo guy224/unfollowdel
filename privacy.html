@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="מדיניות פרטיות של UnfollowDel — תוסף Chrome לניהול עוקבים באינסטגרם באופן מקומי ובטוח." />
+  <title>מדיניות פרטיות — UnfollowDel</title>
+
+  <!-- Preconnect for font speed -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ── Reset & Base ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:       #0A0A0A;
+      --surface:  #141416;
+      --border:   rgba(255,255,255,0.09);
+      --text:     #EDEDED;
+      --muted:    #A1A1AA;
+      --dim:      #71717A;
+      --green:    #34d399;
+      --red:      #f87171;
+      --amber:    #fbbf24;
+      --ig1: #f9ce34;
+      --ig2: #ee2a7b;
+      --ig3: #6228d7;
+      --ig-grad: linear-gradient(135deg, var(--ig1) 0%, var(--ig2) 45%, var(--ig3) 100%);
+    }
+
+    html {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── Layout ── */
+    .page-wrap {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* ── Header ── */
+    header {
+      border-bottom: 1px solid var(--border);
+      padding: 20px 0;
+    }
+    header .container {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .logo-mark {
+      width: 36px; height: 36px;
+      border-radius: 10px;
+      background: var(--ig-grad);
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 800; font-size: 14px; color: #fff;
+      flex-shrink: 0;
+    }
+    .logo-name {
+      font-weight: 700;
+      font-size: 18px;
+      background: var(--ig-grad);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* ── Hero ── */
+    .hero {
+      padding: 72px 0 56px;
+      border-bottom: 1px solid var(--border);
+    }
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 6px 14px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      font-size: 13px; font-weight: 600; color: var(--muted);
+      margin-bottom: 24px;
+    }
+    .hero h1 {
+      font-size: 42px;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.15;
+      color: var(--text);
+      margin-bottom: 16px;
+    }
+    .hero h1 span {
+      background: var(--ig-grad);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero-sub {
+      font-size: 17px;
+      color: var(--muted);
+      max-width: 560px;
+      line-height: 1.65;
+    }
+    .updated-on {
+      margin-top: 20px;
+      font-size: 13px;
+      color: var(--dim);
+    }
+
+    /* ── TL;DR card ── */
+    .tldr-card {
+      margin: 48px 0 0;
+      padding: 28px 32px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .tldr-title {
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--dim);
+      margin-bottom: 4px;
+    }
+    .tldr-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--text);
+    }
+    .tldr-dot {
+      width: 28px; height: 28px;
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px;
+      flex-shrink: 0;
+    }
+    .tldr-dot.green { background: rgba(52,211,153,0.15); border: 1px solid rgba(52,211,153,0.3); }
+    .tldr-dot.red   { background: rgba(248,113,113,0.12); border: 1px solid rgba(248,113,113,0.25); }
+    .tldr-dot.amber { background: rgba(251,191,36,0.12);  border: 1px solid rgba(251,191,36,0.25); }
+
+    /* ── Main content ── */
+    main {
+      flex: 1;
+      padding: 64px 0;
+    }
+
+    .section {
+      margin-bottom: 56px;
+    }
+    .section:last-child { margin-bottom: 0; }
+
+    .section-num {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 28px; height: 28px;
+      background: var(--ig-grad);
+      border-radius: 8px;
+      font-size: 13px; font-weight: 800; color: #fff;
+      margin-bottom: 16px;
+    }
+
+    h2 {
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      margin-bottom: 14px;
+    }
+    p {
+      font-size: 15px;
+      color: var(--muted);
+      line-height: 1.75;
+      margin-bottom: 14px;
+    }
+    p:last-child { margin-bottom: 0; }
+
+    /* ── Highlight boxes ── */
+    .highlight-box {
+      padding: 20px 24px;
+      border-radius: 14px;
+      margin: 20px 0;
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 1.6;
+    }
+    .highlight-box.green {
+      background: rgba(52,211,153,0.08);
+      border: 1px solid rgba(52,211,153,0.25);
+      color: #86efac;
+    }
+    .highlight-box.amber {
+      background: rgba(251,191,36,0.08);
+      border: 1px solid rgba(251,191,36,0.25);
+      color: #fde68a;
+    }
+    .highlight-box.purple {
+      background: rgba(98,40,215,0.1);
+      border: 1px solid rgba(98,40,215,0.3);
+      color: #c4b5fd;
+    }
+    .highlight-box.red {
+      background: rgba(248,113,113,0.08);
+      border: 1px solid rgba(248,113,113,0.2);
+      color: #fca5a5;
+    }
+
+    /* ── Data table ── */
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+      margin: 20px 0;
+    }
+    .data-table th {
+      text-align: right;
+      padding: 10px 16px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      color: var(--muted);
+      font-weight: 600;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+    .data-table td {
+      padding: 12px 16px;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      vertical-align: top;
+    }
+    .data-table td:first-child { color: var(--text); font-weight: 600; }
+    .data-table tr:hover td { background: rgba(255,255,255,0.02); }
+
+    /* ── Divider ── */
+    hr {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 48px 0;
+    }
+
+    /* ── Footer ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 32px 0;
+    }
+    footer .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .footer-brand {
+      display: flex; align-items: center; gap: 10px;
+    }
+    .footer-copy {
+      font-size: 13px;
+      color: var(--dim);
+    }
+    .footer-links {
+      display: flex; gap: 24px;
+    }
+    .footer-links a {
+      font-size: 13px;
+      color: var(--dim);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--muted); }
+
+    /* ── Responsive ── */
+    @media (max-width: 600px) {
+      .hero h1 { font-size: 30px; }
+      .tldr-card { padding: 20px; }
+      footer .container { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+<div class="page-wrap">
+
+  <!-- ── Header ── -->
+  <header>
+    <div class="container">
+      <div class="logo-mark">UD</div>
+      <span class="logo-name">UnfollowDel</span>
+    </div>
+  </header>
+
+  <!-- ── Hero ── -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-eyebrow">
+        🔒 מדיניות פרטיות
+      </div>
+      <h1>הפרטיות שלך <span>חשובה לנו</span></h1>
+      <p class="hero-sub">
+        UnfollowDel עוצב מהיסוד עם פרטיות כעיקרון מרכזי. המידע שלך לא יוצא לשום מקום — הוא נשאר אך ורק בדפדפן שלך.
+      </p>
+      <p class="updated-on">עודכן לאחרונה: ספטמבר 2026</p>
+
+      <!-- TL;DR -->
+      <div class="tldr-card">
+        <div class="tldr-title">תקציר — מה שחשוב לדעת</div>
+        <div class="tldr-item">
+          <div class="tldr-dot green">✅</div>
+          כל הנתונים שמורים <strong>מקומית בלבד</strong> ב-<code>chrome.storage.local</code>
+        </div>
+        <div class="tldr-item">
+          <div class="tldr-dot green">✅</div>
+          <strong>אף פעם</strong> לא ניגשים לסיסמאות או אישורי כניסה
+        </div>
+        <div class="tldr-item">
+          <div class="tldr-dot red">🚫</div>
+          <strong>אין שרתי ענן</strong> — לא נשלח מידע לשום שרת חיצוני
+        </div>
+        <div class="tldr-item">
+          <div class="tldr-dot red">🚫</div>
+          <strong>אין מכירת מידע</strong> — לא לגורמי פרסום, שיווק או מעקב
+        </div>
+        <div class="tldr-item">
+          <div class="tldr-dot amber">📂</div>
+          הקוד <strong>פתוח לציבור</strong> — ניתן לבדיקה ואימות עצמאי
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Main ── -->
+  <main>
+    <div class="container">
+
+      <!-- 1. Introduction -->
+      <div class="section">
+        <div class="section-num">1</div>
+        <h2>מבוא</h2>
+        <p>
+          מדיניות פרטיות זו מתארת כיצד תוסף Chrome בשם <strong>UnfollowDel</strong> מטפל במידע שלך. תוסף זה מאפשר לך לנהל את רשימת העוקבים שלך באינסטגרם — לזהות חשבונות שאינם עוקבים בחזרה ולהסיר אותם — באופן בטוח ומקומי לחלוטין.
+        </p>
+        <p>
+          כאשר תשתמש ב-UnfollowDel, תוסר ממך הצורך למסור אישורי כניסה לכל שירות חיצוני. התוסף פועל ישירות בתוך הדפדפן שלך, ללא תלות בשרתים חיצוניים.
+        </p>
+      </div>
+
+      <!-- 2. Data Collected -->
+      <div class="section">
+        <div class="section-num">2</div>
+        <h2>אילו נתונים נאספים?</h2>
+        <p>
+          UnfollowDel אוסף מינימום מידע — רק מה שנדרש לצורך הפעלת הפונקציונליות הבסיסית:
+        </p>
+
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>סוג נתון</th>
+              <th>מטרה</th>
+              <th>היכן מאוחסן</th>
+              <th>משותף?</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>שם משתמש Instagram</td>
+              <td>זיהוי החשבון המחובר</td>
+              <td>chrome.storage.local בלבד</td>
+              <td>❌ לא</td>
+            </tr>
+            <tr>
+              <td>תמונת פרופיל (URL)</td>
+              <td>הצגה ויזואלית בממשק</td>
+              <td>chrome.storage.local בלבד</td>
+              <td>❌ לא</td>
+            </tr>
+            <tr>
+              <td>רשימת עוקבים / נעקבים</td>
+              <td>חישוב רשימת "לא עוקבים בחזרה"</td>
+              <td>chrome.storage.local בלבד</td>
+              <td>❌ לא</td>
+            </tr>
+            <tr>
+              <td>רשימת VIP (whitelist)</td>
+              <td>הגנה על חשבונות שנבחרו</td>
+              <td>chrome.storage.local בלבד</td>
+              <td>❌ לא</td>
+            </tr>
+            <tr>
+              <td>הגדרות תוסף (גודל batch)</td>
+              <td>שמירת העדפות משתמש</td>
+              <td>chrome.storage.local בלבד</td>
+              <td>❌ לא</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="highlight-box green">
+          ✅ כל הנתונים לעיל מאוחסנים אך ורק בזיכרון המקומי של הדפדפן (<code>chrome.storage.local</code>) ולא עוברים לשום מקום.
+        </div>
+      </div>
+
+      <!-- 3. What is NOT collected -->
+      <div class="section">
+        <div class="section-num">3</div>
+        <h2>מה לא נאסף — לעולם</h2>
+
+        <div class="highlight-box red">
+          🚫 <strong>סיסמאות:</strong> UnfollowDel אינו מבקש, אינו ניגש ואינו מאחסן את סיסמת האינסטגרם שלך בשום אופן. הזדהות מתבצעת אך ורק דרך ה-session הקיים של הדפדפן שלך.
+        </div>
+        <div class="highlight-box red">
+          🚫 <strong>אסימוני אימות (tokens):</strong> לא נקראים ולא מאוחסנים אסימוני גישה, OAuth tokens, session cookies, או כל מידע אימות אחר.
+        </div>
+        <div class="highlight-box red">
+          🚫 <strong>מידע אישי רגיש:</strong> לא נאסף מידע כמו כתובת דוא"ל, מספר טלפון, כתובת IP, מיקום גיאוגרפי, או כל מידע שמאפשר זיהוי אישי.
+        </div>
+        <div class="highlight-box red">
+          🚫 <strong>נתוני שימוש לצורכי פרסום:</strong> לא נשלח שום מידע לרשתות פרסום, שירותי ניתוח (analytics), או גורמי שיווק חיצוניים.
+        </div>
+      </div>
+
+      <!-- 4. How data is used -->
+      <div class="section">
+        <div class="section-num">4</div>
+        <h2>כיצד נעשה שימוש בנתונים?</h2>
+        <p>הנתונים המאוחסנים מקומית משמשים לצרכים הבאים בלבד:</p>
+        <ul style="list-style:none;display:flex;flex-direction:column;gap:10px;margin:16px 0;">
+          <li style="display:flex;gap:10px;align-items:flex-start;">
+            <span style="color:var(--green);font-size:14px;margin-top:2px;flex-shrink:0;">●</span>
+            <span style="font-size:15px;color:var(--muted);">הצגת רשימת העוקבים ורשימת הנעקבים בממשק התוסף</span>
+          </li>
+          <li style="display:flex;gap:10px;align-items:flex-start;">
+            <span style="color:var(--green);font-size:14px;margin-top:2px;flex-shrink:0;">●</span>
+            <span style="font-size:15px;color:var(--muted);">חישוב וסינון חשבונות שאינם עוקבים בחזרה</span>
+          </li>
+          <li style="display:flex;gap:10px;align-items:flex-start;">
+            <span style="color:var(--green);font-size:14px;margin-top:2px;flex-shrink:0;">●</span>
+            <span style="font-size:15px;color:var(--muted);">שמירת רשימת VIP לצורך הגנה על חשבונות נבחרים בפעולות עתידיות</span>
+          </li>
+          <li style="display:flex;gap:10px;align-items:flex-start;">
+            <span style="color:var(--green);font-size:14px;margin-top:2px;flex-shrink:0;">●</span>
+            <span style="font-size:15px;color:var(--muted);">שמירת העדפות תוסף (כגון גודל batch) בין הפעלות</span>
+          </li>
+        </ul>
+        <p>הנתונים <strong>אינם</strong> משמשים לכל מטרה אחרת, ולא מוצאים מחוץ לדפדפן שלך.</p>
+      </div>
+
+      <!-- 5. How it works -->
+      <div class="section">
+        <div class="section-num">5</div>
+        <h2>כיצד התוסף פועל — מבט טכני</h2>
+        <p>
+          UnfollowDel משתמש ב-<strong>Chrome Debugger API</strong> כדי לדמות לחיצות עכבר אנושיות על ממשק האינסטגרם הקיים בדפדפן שלך. הפעולות מתבצעות ישירות בכרטיסיית האינסטגרם הפתוחה — ללא כל תקשורת עם שרתים חיצוניים.
+        </p>
+        <div class="highlight-box purple">
+          ⚙️ <strong>ללא API מצד Instagram:</strong> התוסף אינו קורא ל-API הרשמי של Instagram ואינו משתמש ב-GraphQL endpoints. כל הפעולות הן סימולציה של אינטראקציה אנושית בממשק המשתמש הרגיל.
+        </div>
+        <p>
+          נתוני הרשימות (עוקבים / נעקבים) נשמרים ב-<code>chrome.storage.local</code> — מנגנון אחסון מוצפן ומבודד שסופק על-ידי Chrome, הנגיש רק לתוסף זה בלבד, ורק על מכשיר המשתמש.
+        </p>
+      </div>
+
+      <!-- 6. Third parties -->
+      <div class="section">
+        <div class="section-num">6</div>
+        <h2>גורמים צד שלישי</h2>
+        <p>
+          UnfollowDel <strong>אינו</strong> משלב שירותים של צד שלישי כלשהו — לרבות:
+        </p>
+        <div class="highlight-box red">
+          🚫 שירותי analytics (Google Analytics, Mixpanel וכד')
+        </div>
+        <div class="highlight-box red">
+          🚫 רשתות פרסום (AdSense, Facebook Pixel וכד')
+        </div>
+        <div class="highlight-box red">
+          🚫 שירותי crash reporting (Sentry, Bugsnag וכד')
+        </div>
+        <div class="highlight-box red">
+          🚫 שירותי אחסון ענן (Firebase, Supabase, AWS וכד')
+        </div>
+        <p>
+          לא יתבצע שיתוף, מכירה, השכרה, או העברה של מידע אישי לגורם חיצוני כלשהו, בשום נסיבות.
+        </p>
+      </div>
+
+      <!-- 7. Data retention -->
+      <div class="section">
+        <div class="section-num">7</div>
+        <h2>שמירת ומחיקת נתונים</h2>
+        <p>
+          הנתונים שמורים מקומית כל עוד התוסף מותקן. המשתמש יכול למחוק את כל הנתונים בכל עת:
+        </p>
+        <div class="highlight-box amber">
+          🗑️ <strong>מחיקה מלאה:</strong> הסרת התוסף מ-Chrome תמחק אוטומטית את כל הנתונים המאוחסנים ב-<code>chrome.storage.local</code>. לחלופין, ניתן לנקות את נתוני התוסף מהגדרות Chrome ← Extensions ← UnfollowDel ← Clear Data.
+        </div>
+      </div>
+
+      <!-- 8. Open source -->
+      <div class="section">
+        <div class="section-num">8</div>
+        <h2>קוד פתוח ושקיפות</h2>
+        <p>
+          UnfollowDel הוא תוסף בקוד פתוח (<em>open source</em>). כל הקוד נגיש לבדיקה ציבורית — כל אחד יכול לאמת שמדיניות הפרטיות הזו עומדת במבחן המציאות.
+        </p>
+        <div class="highlight-box green">
+          ✅ אין "קוד נסתר". מה שמתואר במדיניות זו הוא בדיוק מה שקורה בפועל — ניתן לאמת ידנית על-ידי בחינת ה-source code.
+        </div>
+      </div>
+
+      <!-- 9. Children -->
+      <div class="section">
+        <div class="section-num">9</div>
+        <h2>פרטיות ילדים</h2>
+        <p>
+          UnfollowDel אינו מיועד לשימוש על-ידי ילדים מתחת לגיל 13. אנו לא אוספים ביודעין מידע מילדים. אם הגעתם לידיעה שילד מתחת לגיל 13 השתמש בתוסף, אנא צרו קשר כדי שנוכל לפעול בהתאם.
+        </p>
+      </div>
+
+      <!-- 10. Contact -->
+      <div class="section">
+        <div class="section-num">10</div>
+        <h2>יצירת קשר</h2>
+        <p>
+          לשאלות, הערות, או בקשות בנוגע למדיניות פרטיות זו — ניתן לפנות אלינו:
+        </p>
+        <div class="highlight-box purple" style="display:flex;align-items:center;gap:12px;">
+          <span style="font-size:20px;">✉️</span>
+          <div>
+            <div style="font-weight:700;margin-bottom:2px;">הגשת פנייה דרך GitHub Issues</div>
+            <div style="font-size:13px;opacity:.8;">בדף הפרויקט ב-GitHub — נגיב תוך 48 שעות</div>
+          </div>
+        </div>
+      </div>
+
+      <hr />
+
+      <div class="section">
+        <div class="highlight-box green" style="display:flex;align-items:flex-start;gap:14px;">
+          <span style="font-size:24px;flex-shrink:0;">🔒</span>
+          <div>
+            <strong style="display:block;margin-bottom:6px;font-size:15px;">ההתחייבות שלנו</strong>
+            <span style="font-size:14px;">UnfollowDel לא מוכר, לא מעביר, ולא משתמש בנתונים שלך לשום מטרה שמעבר לפעולה הבסיסית של התוסף — ניהול העוקבים שלך, באופן מקומי לחלוטין ובשמירה מלאה על הפרטיות שלך.</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- ── Footer ── -->
+  <footer>
+    <div class="container">
+      <div class="footer-brand">
+        <div class="logo-mark" style="width:28px;height:28px;font-size:11px;border-radius:8px;">UD</div>
+        <span class="footer-copy">© 2026 UnfollowDel. כל הזכויות שמורות.</span>
+      </div>
+      <div class="footer-links">
+        <a href="https://github.com" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="https://chromewebstore.google.com" target="_blank" rel="noopener noreferrer">Chrome Web Store</a>
+      </div>
+    </div>
+  </footer>
+
+</div>
+</body>
+</html>
