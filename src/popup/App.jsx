@@ -55,7 +55,7 @@ function App() {
       <header className="w-full px-6 py-4 flex justify-between items-center border-b border-[#222]">
         <div className="flex items-center gap-3">
           <div className="w-8 h-8 rounded-lg flex items-center justify-center">
-            <img src="/logo.svg" alt="UnfollowDel Logo" className="w-full h-full object-contain" />
+            <img src="./logo.svg" alt="UnfollowDel Logo" className="w-full h-full object-contain" />
           </div>
           <h1 className="text-xl font-bold tracking-tight bg-gradient-to-r from-[#f9ce34] via-[#ee2a7b] to-[#6228d7] bg-clip-text text-transparent">
             UnfollowDel

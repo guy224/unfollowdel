@@ -13,6 +13,7 @@ export default defineConfig({
   build: {
     rollupOptions: {
       input: {
+        index: resolve(__dirname, 'index.html'),
         onboarding: resolve(__dirname, 'onboarding.html'),
         landing: resolve(__dirname, 'landing.html'),
         uninstall: resolve(__dirname, 'uninstall.html'),
